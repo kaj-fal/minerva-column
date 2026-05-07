@@ -46,9 +46,13 @@
   "mara-andrea-deac": {
     "name": "Mara Andrea Deac", 
     "image": "/images/authors/Mara_Deac_M28.jpeg"
-  }  
+  }, 
   "jiayuan-tian": {
     "name": "Jiayuan Tian",
     "image": "/images/authors/jiayuan.jpeg"
+  },
+    "almira-halkina": {
+    "name": "Almira Halkina",
+    "image": "/images/authors/almira.jpeg"
   }
 }
