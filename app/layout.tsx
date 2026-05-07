@@ -7,7 +7,7 @@ import { Analytics } from "@vercel/analytics/next"
 
 export const metadata: Metadata = {
   title: "The Column",
-  description: "A Minerva University student-lead journal",
+  description: "Minerva University Student News",
 };
 
 export default function RootLayout({
