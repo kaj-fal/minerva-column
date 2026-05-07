@@ -139,19 +139,25 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                     {/* End of Article: Author Signature */}
                     <div className="mt-12 flex flex-col items-center text-center">
                         <div className="flex flex-col items-center gap-6">
-                            {article.meta.author.image ? (
-                                <div className="relative w-32 h-32 rounded-full overflow-hidden shadow-xl border-4 border-white">
-                                    <Image
-                                        src={article.meta.author.image}
-                                        alt={article.meta.author.name}
-                                        fill
-                                        className="object-cover"
-                                    />
-                                </div>
-                            ) : null}
+                            <div className="flex -space-x-4 justify-center">
+                                {article.meta.authors.map((author, idx) => (
+                                    author.image ? (
+                                        <div key={author.id} className="relative w-32 h-32 rounded-full overflow-hidden shadow-xl border-4 border-white" style={{ zIndex: idx }}>
+                                            <Image
+                                                src={author.image}
+                                                alt={author.name}
+                                                fill
+                                                className="object-cover"
+                                            />
+                                        </div>
+                                    ) : null
+                                ))}
+                            </div>
                             <span className="text-2xl font-trajan text-ink font-bold tracking-tight italic">
-                                <span className="text-gray-500 font-avenir text-lg mr-2 font-normal not-italic">Written by</span>
-                                {article.meta.author.name}
+                                <span className="text-gray-500 font-avenir text-lg mr-2 font-normal not-italic">
+                                    {article.meta.authors.length > 1 ? 'Written by' : 'Written by'}
+                                </span>
+                                {article.meta.authors.map(a => a.name).join(' & ')}
                             </span>
                         </div>
                     </div>
@@ -162,27 +168,31 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                     {/* Author Block */}
                     <div>
                         <h3 className="text-lg font-trajan font-bold text-accent uppercase tracking-wider border-b-2 border-accent mb-4 pb-2">
-                            Author
+                            {article.meta.authors.length > 1 ? 'Authors' : 'Author'}
                         </h3>
-                        <div className="flex items-center space-x-4">
-                            {article.meta.author.image ? (
-                                <div className="w-14 h-14 relative rounded-sm overflow-hidden shadow-sm border border-gray-100">
-                                    <Image
-                                        src={article.meta.author.image}
-                                        alt={article.meta.author.name}
-                                        fill
-                                        className="object-cover"
-                                    />
+                        <div className="flex flex-col space-y-4">
+                            {article.meta.authors.map((author) => (
+                                <div key={author.id} className="flex items-center space-x-4">
+                                    {author.image ? (
+                                        <div className="w-14 h-14 relative rounded-sm overflow-hidden shadow-sm border border-gray-100 flex-shrink-0">
+                                            <Image
+                                                src={author.image}
+                                                alt={author.name}
+                                                fill
+                                                className="object-cover"
+                                            />
+                                        </div>
+                                    ) : (
+                                        <div className="w-14 h-14 bg-accent text-white flex items-center justify-center font-trajan text-xl font-bold rounded-sm shadow-sm flex-shrink-0">
+                                            {author.name.charAt(0)}
+                                        </div>
+                                    )}
+                                    <div>
+                                        <span className="text-xs font-avenir text-gray-500 italic block mb-1">Written by</span>
+                                        <span className="text-lg font-trajan text-ink font-semibold leading-tight">{author.name}</span>
+                                    </div>
                                 </div>
-                            ) : (
-                                <div className="w-14 h-14 bg-accent text-white flex items-center justify-center font-trajan text-xl font-bold rounded-sm shadow-sm">
-                                    {article.meta.author.name.charAt(0)}
-                                </div>
-                            )}
-                            <div>
-                                <span className="text-xs font-avenir text-gray-500 italic block mb-1">Written by</span>
-                                <span className="text-lg font-trajan text-ink font-semibold leading-tight">{article.meta.author.name}</span>
-                            </div>
+                            ))}
                         </div>
                     </div>
 
@@ -200,7 +210,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                                             {post.meta.title}
                                         </h4>
                                     </Link>
-                                    <p className="text-sm font-avenir text-accent mt-1 transition-colors">{post.meta.author.name}</p>
+                                    <p className="text-sm font-avenir text-accent mt-1 transition-colors">{post.meta.authors.map(a => a.name).join(' & ')}</p>
                                 </div>
                             ))}
                         </div>
