@@ -54,7 +54,7 @@ export default function CategoryPage({ category, title }: CategoryPageProps) {
                         </h2>
                     </Link>
                     <p className="text-sm font-avenir text-gray-500 uppercase font-semibold tracking-wider mb-6">
-                        By <span className="text-accent">{featuredArticle.meta.author.name}</span> • {new Date(featuredArticle.meta.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+                        By <span className="text-accent">{featuredArticle.meta.authors.map(a => a.name).join(' & ')}</span> • {new Date(featuredArticle.meta.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
                     </p>
                     <p className="font-avenir text-gray-700 leading-relaxed text-lg text-justify mx-auto max-w-2xl">
                         {stripMarkdown(featuredArticle.content.split('\n').find(line => line.length > 50 && !line.startsWith('#')) || '').substring(0, 300) || 'Click to read full story.'}...
@@ -73,7 +73,7 @@ export default function CategoryPage({ category, title }: CategoryPageProps) {
                                 </h3>
                             </Link>
                             <p className="text-xs font-avenir text-gray-500 uppercase font-semibold tracking-wider mb-4">
-                                By <span className="text-accent">{article.meta.author.name}</span> • {new Date(article.meta.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+                                By <span className="text-accent">{article.meta.authors.map(a => a.name).join(' & ')}</span> • {new Date(article.meta.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
                             </p>
                             <p className="text-base font-avenir text-gray-700 leading-relaxed text-justify">
                                 {stripMarkdown(article.content.split('\n').find(line => line.length > 50 && !line.startsWith('#')) || '').substring(0, 250) || 'Click to read full story.'}...

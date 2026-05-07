@@ -17,7 +17,7 @@ export interface ArticleMeta {
     title: string;
     description?: string;
     date: string;
-    author: Author;
+    authors: Author[];
     category: string;
     coverImage?: string;
 }
@@ -72,7 +72,12 @@ export function getArticleBySlug(slug: string): Article {
     const fileContents = fs.readFileSync(fullPath, 'utf8');
     const { data, content } = matter(fileContents);
 
-    const authorId = data.author || 'the-column';
+    const authorIdsRaw = data.author || 'the-column';
+    const authorIds = typeof authorIdsRaw === 'string' 
+        ? authorIdsRaw.split(',').map(id => id.trim())
+        : [authorIdsRaw.toString()];
+
+    const authors = authorIds.map(id => getAuthorById(id));
 
     return {
         meta: {
@@ -80,7 +85,7 @@ export function getArticleBySlug(slug: string): Article {
             title: data.title || 'Untitled',
             description: data.description || undefined,
             date: data.date || new Date().toISOString(),
-            author: getAuthorById(authorId),
+            authors,
             category: data.category || 'Other',
             coverImage: data.coverImage || undefined,
         },
