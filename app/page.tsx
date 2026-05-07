@@ -63,7 +63,7 @@ export default function Home() {
           </Link>
 
           <p className="text-sm font-avenir text-gray-500 uppercase font-semibold tracking-wider mb-2">
-            By <span className="text-accent">{mainArticle.meta.author.name}</span> • {new Date(mainArticle.meta.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+            By <span className="text-accent">{mainArticle.meta.authors.map(a => a.name).join(' & ')}</span> • {new Date(mainArticle.meta.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
           </p>
 
           <p className="font-avenir text-gray-700 leading-relaxed text-lg mb-6">
@@ -89,7 +89,7 @@ export default function Home() {
                   </h3>
                 </Link>
                 <p className="text-xs font-avenir text-gray-500 uppercase font-semibold tracking-wider mb-2">
-                  By <span className="text-accent">{article.meta.author.name}</span> • {new Date(article.meta.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                  By <span className="text-accent">{article.meta.authors.map(a => a.name).join(' & ')}</span> • {new Date(article.meta.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
                 </p>
                 <p className="text-sm font-avenir text-gray-700 leading-relaxed line-clamp-3">
                   {stripMarkdown(article.content.split('\n').find(line => line.length > 30 && !line.startsWith('#')) || '').substring(0, 100) || 'Read more...'}...
@@ -126,7 +126,7 @@ export default function Home() {
                       </h3>
                     </Link>
                     <p className="text-xs font-avenir text-gray-500 uppercase mb-4 font-semibold">
-                      {article.meta.author.name} • {new Date(article.meta.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                      {article.meta.authors.map(a => a.name).join(' & ')} • {new Date(article.meta.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
                     </p>
                   <p className="text-base font-avenir text-gray-700 leading-relaxed line-clamp-4 mt-auto">
                     {stripMarkdown(article.content.split('\n').find(line => line.length > 40 && !line.startsWith('#')) || '').substring(0, 150) || 'Read more...'}...
